@@ -8,7 +8,7 @@ export class TieFighter extends Actor {
     onInitialize() {
         const sprite = Resources.Opponent.toSprite()
         this.graphics.use(sprite)
-        this.pos = new Vector(randomInRange(40, 1400), randomInRange(0, 400))
+        this.pos = new Vector(Math.random() * 1400, Math.random() * 250)
         this.vel = new Vector(0, 100)
         this.scale = new Vector(0.2, 0.2)
     }

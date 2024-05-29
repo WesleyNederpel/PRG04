@@ -74,14 +74,9 @@ export class Xwing extends Actor {
 
         if (engine.input.keyboard.wasPressed(Keys.Space)) {
             const bullet = new Bullet()
-            bullet.pos = new Vector(this.pos.x - 60, this.pos.y - 75)
+            bullet.pos = new Vector(this.pos.x, this.pos.y - 80)
             bullet.scale = new Vector(.2, .2)
             engine.add(bullet)
-
-            const bullet2 = new Bullet()
-            bullet2.pos = new Vector(this.pos.x + 60, this.pos.y - 75)
-            bullet2.scale = new Vector(.2, .2)
-            engine.add(bullet2)
         }
 
         const leftBoundary = this.width / 2
