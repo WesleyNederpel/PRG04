@@ -4,18 +4,20 @@ import { Label, FontUnit, Font, ScreenElement, Actor, Vector, Color } from "exca
 export class UI extends ScreenElement {
 
     scoreText
+    healthbar
+    score = 0
+    hp = 5
+
 
     onInitialize(engine) {
-        for (let i = 0; i < 3; i++) {
-            const heart = new Actor()
-            heart.graphics.use(Resources.HeartImage.toSprite())
-            heart.pos = new Vector(1230 + (i * 75), 60)
-            heart.scale = new Vector(0.1, 0.1)
-            this.addChild(heart)
-        }
+        let barbackground = new Actor({ x: 1200, y: 40, color: Color.fromRGB(255, 255, 255, 0.4), width: 200, height: 20, anchor: Vector.Zero })
+        this.addChild(barbackground)
+
+        this.healthbar = new Actor({ x: 1200, y: 40, color: Color.Green, width: 200, height: 20, anchor: Vector.Zero })
+        this.addChild(this.healthbar)
 
         this.scoreText = new Label({
-            text: 'Score: 0',
+            text: `Score: ${this.score}`,
             pos: new Vector(50, 50),
             font: Resources.PixelFont.toFont({
                 unit: FontUnit.Px,
@@ -29,7 +31,12 @@ export class UI extends ScreenElement {
 
     }
 
-    updateScore() {
-        this.scoreText.text = `Score: 200`
+    updateScore(score) {
+        this.score += score
+        this.scoreText.text = `Score: ${this.score}`
+    }
+
+    updateHealth(hp, playerhp) {
+        this.healthbar.scale = new Vector(hp / playerhp, 1)
     }
 }

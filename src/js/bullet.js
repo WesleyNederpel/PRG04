@@ -16,8 +16,13 @@ export class Bullet extends Actor {
         this.scale = new Vector(.2, .2)
         this.on('collisionstart', (event) => this.hitSomething(event))
     }
+
     hitSomething(event) {
-        if (event.other instanceof TieFighter)
+        if (event.other instanceof TieFighter) {
             event.other.kill()
+            // @ts-ignore
+            this.scene?.engine.addPoints(100)
+        }
+
     }
 }
