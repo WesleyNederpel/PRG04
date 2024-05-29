@@ -35,9 +35,8 @@ export class Xwing extends Actor {
 
             // @ts-ignore
             this.scene?.reduceHealth(this.hp)
-
             this.isImmune = true
-            this.actions.blink(40, 40, 25).callMethod(() => {
+            this.actions.blink(40, 40, 15).callMethod(() => {
                 this.isImmune = false
             })
         } if (this.hp <= 0) {

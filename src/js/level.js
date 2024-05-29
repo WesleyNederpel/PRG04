@@ -4,6 +4,7 @@ import { Background } from './background.js';
 import { TieFighter } from './opponent'
 import { UI } from './ui.js'
 import { Scene } from 'excalibur';
+import { GameWon } from './gamewon.js';
 
 export class Level extends Scene {
 
@@ -16,7 +17,11 @@ export class Level extends Scene {
     ui
 
     addPoints(points) {
+        this.score += points
         this.ui.updateScore(points)
+        if (this.score >= 1000) {
+            this.engine.goToScene('GameEnd')
+        }
     }
 
     reduceHealth(hp) {
@@ -33,6 +38,9 @@ export class Level extends Scene {
         }
         this.ui = new UI()
         this.add(this.ui)
+
+        const GameEnd = new GameWon()
+        this.engine.add('GameEnd', GameWon)
     }
     createPlayer() {
         const xwing = new Xwing(this.ui)

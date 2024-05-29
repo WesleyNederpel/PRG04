@@ -16,7 +16,7 @@ export class GameStart extends Scene {
     }
 
     onPreUpdate(engine) {
-        if (engine.input.keyboard.isHeld(Keys.Enter)) {
+        if (engine.input.keyboard.wasPressed(Keys.Enter)) {
             this.engine.goToScene('Level')
         }
     }

@@ -3,7 +3,7 @@ import { DisplayMode, Engine } from "excalibur"
 import { ResourceLoader } from './resources.js'
 import { GameStart } from './gamestart.js'
 import { Level } from './level.js'
-import { GameOver } from './gameover.js'
+import { GameWon } from './gamewon.js'
 
 class Game extends Engine {
     constructor() {
@@ -17,7 +17,7 @@ class Game extends Engine {
         this.add('gamestart', new GameStart())
         this.goToScene('GameStart')
         this.add('level', new Level())
-        this.add('gameover', new GameOver())
+        this.add('gamewon', new GameWon())
         this.goToScene('gamestart')
     }
 }
