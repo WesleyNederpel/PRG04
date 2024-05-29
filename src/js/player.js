@@ -1,9 +1,8 @@
-import { Actor, CollisionType, Color, Engine, Keys, Vector } from "excalibur"
-import { Resources, ResourceLoader } from './resources.js'
+import { Actor, CollisionType, Keys, Vector } from "excalibur"
+import { Resources } from './resources.js'
 import { Bullet } from "./bullet.js"
 import { TieFighter } from "./opponent.js"
-import { UI } from './ui.js'
-
+import { EnemyBullet } from "./enemybullet.js"
 
 export class Xwing extends Actor {
     constructor(ui) {
@@ -19,13 +18,13 @@ export class Xwing extends Actor {
         this.graphics.use(sprite)
         this.pos = new Vector(720, 700)
         this.vel = new Vector(0, 0)
-        this.scale = new Vector(0.2, 0.2)
+        this.scale = new Vector(0.15, 0.15)
         this.on('collisionstart', (event) => this.hitSomething(event))
 
     }
 
     hitSomething(event) {
-        if (event.other instanceof TieFighter && !this.isImmune) {
+        if (event.other instanceof TieFighter || event.other instanceof EnemyBullet && !this.isImmune) {
             this.getDamage(1)
         }
     }
@@ -33,10 +32,9 @@ export class Xwing extends Actor {
     getDamage(amount) {
         if (!this.isImmune) {
             this.hp -= amount
-            console.log(this.hp)
 
             // @ts-ignore
-            this.scene?.engine.reduceHealth()
+            this.scene?.reduceHealth(this.hp)
 
             this.isImmune = true
             this.actions.blink(40, 40, 25).callMethod(() => {
@@ -75,7 +73,7 @@ export class Xwing extends Actor {
         if (engine.input.keyboard.wasPressed(Keys.Space)) {
             const bullet = new Bullet()
             bullet.pos = new Vector(this.pos.x, this.pos.y - 80)
-            bullet.scale = new Vector(.2, .2)
+            bullet.scale = new Vector(.15, .15)
             engine.add(bullet)
         }
 

@@ -1,5 +1,5 @@
-import { Actor, Color, Engine, Keys, Vector } from "excalibur"
-import { Resources, ResourceLoader } from './resources.js'
+import { Actor, Vector } from "excalibur"
+import { Resources } from './resources.js'
 import { TieFighter } from './opponent.js'
 
 
@@ -13,7 +13,7 @@ export class Bullet extends Actor {
         this.graphics.use(sprite)
         sprite.rotation = 4.71;
         this.vel = new Vector(0, -2000)
-        this.scale = new Vector(.2, .2)
+        this.scale = new Vector(.15, .15)
         this.on('collisionstart', (event) => this.hitSomething(event))
     }
 
@@ -21,8 +21,8 @@ export class Bullet extends Actor {
         if (event.other instanceof TieFighter) {
             event.other.kill()
             // @ts-ignore
-            this.scene?.engine.addPoints(100)
+            this.scene?.addPoints(100)
         }
-
+        this.kill()
     }
 }
